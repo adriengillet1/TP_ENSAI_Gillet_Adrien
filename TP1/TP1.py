@@ -14,8 +14,8 @@ def transform_url(link, url):
         return link
 
 
-def extract_informations(url):
-    response = requests.get(url)
+def extract_informations(url, user_agent):
+    response = requests.get(url, headers={'User-Agent': user_agent})
     soup = BeautifulSoup(response.content, 'html.parser')
 
     title = soup.title.string if soup.title else ''
@@ -96,6 +96,7 @@ def crawler(my_user_agent, starting_url, maximum_nb_pages_to_parse = 50) :
     add_to_queue(starting_url, priority_queue, non_priority_queue, pages_allready_visited)
 
     while maximum_nb_pages_to_parse > 0:
+        print(maximum_nb_pages_to_parse)
 
         url = next_url(priority_queue, non_priority_queue)
 
@@ -106,7 +107,7 @@ def crawler(my_user_agent, starting_url, maximum_nb_pages_to_parse = 50) :
         if have_the_right_to_parse(url, my_user_agent):
             pages_allready_visited.append(url)
 
-            title, description, links = extract_informations(url)
+            title, description, links = extract_informations(url, my_user_agent)
             results.append({
                 "url": url,
                 "title": title,
@@ -130,6 +131,6 @@ def crawler(my_user_agent, starting_url, maximum_nb_pages_to_parse = 50) :
 
 
 
-my_user_agent = "MyFirstUserAgent"
+my_user_agent = "adrien.gillet@eleve.ensai.fr"
 starting_url = "https://web-scraping.dev/products"
 crawler(my_user_agent, starting_url)
