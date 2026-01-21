@@ -1,0 +1,72 @@
+{
+  "1": {
+    "title": "Blue Energy Potion - One",
+    "url": "https://web-scraping.dev/product/5?variant=one",
+    "description": "It's more than just an energy drink - it's an ode to the gaming culture, packaged in an aesthetically pleasing potion-like bottle that'll make you feel like you're in your favorite game world. Inspired by the classic video game potions, this energy drink provides a much-needed boost to keep you focused and energized. Ignite your gaming sessions with our 'blue energy potion', a premium energy drink crafted for dedicated gamers",
+    "score": 1070.5,
+    "rank": 1
+  },
+  "2": {
+    "title": "Blue Energy Potion - Six pack",
+    "url": "https://web-scraping.dev/product/17?variant=six-pack",
+    "description": "Drink up and game on!. Ignite your gaming sessions with our 'blue energy potion', a premium energy drink crafted for dedicated gamers. Inspired by the classic video game potions, this energy drink provides a much-needed boost to keep you focused and energized",
+    "score": 1009.5,
+    "rank": 2
+  },
+  "3": {
+    "title": "Blue Energy Potion",
+    "url": "https://web-scraping.dev/product/17",
+    "description": "Drink up and game on!. Ignite your gaming sessions with our 'blue energy potion', a premium energy drink crafted for dedicated gamers. Inspired by the classic video game potions, this energy drink provides a much-needed boost to keep you focused and energized",
+    "score": 1009.5,
+    "rank": 3
+  },
+  "4": {
+    "title": "Blue Energy Potion",
+    "url": "https://web-scraping.dev/product/5",
+    "description": "It's more than just an energy drink - it's an ode to the gaming culture, packaged in an aesthetically pleasing potion-like bottle that'll make you feel like you're in your favorite game world. Drink up and game on!. Ignite your gaming sessions with our 'blue energy potion', a premium energy drink crafted for dedicated gamers",
+    "score": 1000.4,
+    "rank": 4
+  },
+  "5": {
+    "title": "Blue Energy Potion - One",
+    "url": "https://web-scraping.dev/product/17?variant=one",
+    "description": "It's more than just an energy drink - it's an ode to the gaming culture, packaged in an aesthetically pleasing potion-like bottle that'll make you feel like you're in your favorite game world. Ignite your gaming sessions with our 'blue energy potion', a premium energy drink crafted for dedicated gamers. Drink up and game on!",
+    "score": 1000.4,
+    "rank": 5
+  },
+  "6": {
+    "title": "Blue Energy Potion - Six pack",
+    "url": "https://web-scraping.dev/product/5?variant=six-pack",
+    "description": "Drink up and game on!. It's more than just an energy drink - it's an ode to the gaming culture, packaged in an aesthetically pleasing potion-like bottle that'll make you feel like you're in your favorite game world. Inspired by the classic video game potions, this energy drink provides a much-needed boost to keep you focused and energized",
+    "score": 909.9,
+    "rank": 6
+  },
+  "7": {
+    "title": "Red Energy Potion - Six pack",
+    "url": "https://web-scraping.dev/product/28?variant=six-pack",
+    "description": "This fiery red potion delivers an explosive berry flavor and an energy kick that keeps you at the top of your game. Elevate your game with our 'red potion', an extraordinary energy drink that's as enticing as it is effective",
+    "score": 760.0,
+    "rank": 7
+  },
+  "8": {
+    "title": "Red Energy Potion",
+    "url": "https://web-scraping.dev/product/4",
+    "description": "This fiery red potion delivers an explosive berry flavor and an energy kick that keeps you at the top of your game. Elevate your game with our 'red potion', an extraordinary energy drink that's as enticing as it is effective",
+    "score": 760.0,
+    "rank": 8
+  },
+  "9": {
+    "title": "Red Energy Potion - One",
+    "url": "https://web-scraping.dev/product/4?variant=one",
+    "description": "Elevate your game with our 'red potion', an extraordinary energy drink that's as enticing as it is effective. This fiery red potion delivers an explosive berry flavor and an energy kick that keeps you at the top of your game",
+    "score": 760.0,
+    "rank": 9
+  },
+  "10": {
+    "title": "Dragon Energy Potion - Six pack",
+    "url": "https://web-scraping.dev/product/6?variant=six-pack",
+    "description": "Fuel your gaming prowess with our 'dragon potion', an energy drink for those who dare to take on the greatest challenges. Packed with a fiery tropical flavor and a potent energy blend, this potion sets the stage for epic gaming sessions",
+    "score": 755.0,
+    "rank": 10
+  }
+}

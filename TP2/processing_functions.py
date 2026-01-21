@@ -1,17 +1,6 @@
 import urllib.parse
-import json
-import spacy
-from spacy.lang.en import English
 from collections import defaultdict
-import string
-
-
-def read_jsonl_file():
-    products = []
-    with open("input/products.jsonl", "r", encoding="utf-8") as f:
-        for line in f:
-            products.append(json.loads(line))
-    return products
+from utils import load_nlp_model
 
 
 def extract_information_from_url(products):
@@ -30,16 +19,6 @@ def extract_information_from_url(products):
         
         product["product_id"] = product_id
         product["product_variant"] = product_variant
-
-
-def load_nlp_model():
-    nlp = English()
-    nlp.tokenizer = spacy.tokenizer.Tokenizer(
-        nlp.vocab,
-        token_match=None
-    )
-    PUNCT_TABLE = str.maketrans("", "", string.punctuation)
-    return nlp, PUNCT_TABLE
 
 
 def creation_inversed_index(products, field):
@@ -81,39 +60,36 @@ def creation_review_index(products):
 def creation_inversed_index_features(products):
     inversed_index_brand = defaultdict(list)
     inversed_index_origin = defaultdict(list)
+    inversed_index_design = defaultdict(list)
+    inversed_index_color = defaultdict(list)
+
+    nlp, PUNCT_TABLE = load_nlp_model()
 
     for product in products:
         features = product["product_features"]
 
         brand = features.get("brand")
         origin = features.get("made in")
+        design = features.get("design")
+        colors = features.get("colors")
 
         if brand:
             inversed_index_brand[brand.lower()].append(product['url'])
         if origin:
             inversed_index_origin[origin.lower()].append(product['url'])
+        if design:
+            tokens = nlp(design)
+            for token in tokens:
+                token = token.text.translate(PUNCT_TABLE).lower()
+                if token and token not in nlp.Defaults.stop_words:
+                    inversed_index_design[token].append(product['url'])
+        if colors:
+            tokens = nlp(colors)
+            for token in tokens:
+                token = token.text.translate(PUNCT_TABLE).lower()
+                if token and token not in nlp.Defaults.stop_words:
+                    inversed_index_color[token].append(product['url'])
 
-    return inversed_index_brand, inversed_index_origin
-    
-
-def save_json_file(data, filename):
-    with open(filename, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
+    return inversed_index_brand, inversed_index_origin, inversed_index_design, inversed_index_color
 
 
-
-
-
-products = read_jsonl_file()
-extract_information_from_url(products)
-
-inversed_index_title = creation_inversed_index(products, "title")
-inversed_index_description = creation_inversed_index(products, "description")
-review_index = creation_review_index(products)
-inversed_index_brand, inversed_index_origin = creation_inversed_index_features(products)
-
-save_json_file(inversed_index_title, "my_inversed_index_title.json")
-save_json_file(inversed_index_description, "my_inversed_index_description.json")
-save_json_file(review_index, "my_review_index.json")
-save_json_file(inversed_index_brand, "my_inversed_index_brand.json")
-save_json_file(inversed_index_origin, "my_inversed_index_origin.json")
