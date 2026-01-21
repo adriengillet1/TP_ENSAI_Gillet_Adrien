@@ -6,7 +6,6 @@ from processing_functions import tokenization, normalize_list_of_tokens, normali
 
 # NB : implémentation de la classe BM25InvertedIndex à l'aide de l'IA
 class BM25InvertedIndex:
-
     def __init__(
         self,
         index: Dict[str, Dict[int, List]],
