@@ -51,17 +51,18 @@ class BM25InvertedIndex:
 
         return scores
 
-    def rank(self, query: List[str], k: int = 10):
-        scores = self.score(query)
-        return sorted(scores.items(), key=lambda x: x[1], reverse=True)[:k]
-
 
 
 def scoring(query, list_of_index, products):
+    """
+    Compute a score for each product for a given query. It combines the bm25 score and other information.
+    """
+
     print("Original query : ", query)
     tokenised_query = tokenization(query)
     normalized_query = normalize_list_of_tokens(tokenised_query)
     print("Tokenized and normalized query : ", normalized_query)
+
 
     normalized_description_index = normalize_document_index(list_of_index["description_index"])
     results_with_description_index = count_matching_tokens_between_document_and_index(normalized_query, normalized_description_index, products)
@@ -73,6 +74,11 @@ def scoring(query, list_of_index, products):
 
     results_with_brand_index = count_matching_tokens_between_document_and_index(normalized_query, list_of_index["brand_index"], products)
 
+    description_length = compute_description_length(products)
+    bm25 = BM25InvertedIndex(list_of_index["description_index"], description_length)
+    bm25_score = bm25.score(normalized_query)
+
+
     unique_url_response = []
     for url in results_with_title_index.keys():
         unique_url_response.append(url)
@@ -82,29 +88,29 @@ def scoring(query, list_of_index, products):
         unique_url_response.append(url)
     for url in results_with_brand_index.keys():
         unique_url_response.append(url)
+    for url in bm25_score.keys():
+        unique_url_response.append(url)
     unique_url_response = set(unique_url_response)
+
 
     score = defaultdict(int)
 
-    description_length = compute_description_length(products)
-    bm25 = BM25InvertedIndex(list_of_index["description_index"], description_length)
-
     for url in unique_url_response:
+        # results_with_title_index values between 0 and 1
         if url in results_with_title_index.keys():
             score[url] += results_with_title_index[url] * 100
+        # results_with_description_index values between 0 and 1
         if url in results_with_description_index.keys():
             score[url] += results_with_description_index[url] * 50
         if url in results_with_origin_index.keys():
             score[url] += 20
         if url in results_with_brand_index.keys():
             score[url] += 40
+        if url in bm25_score.keys():
+            score[url] += bm25_score[url] * 10
         mean_mark = list_of_index["reviews_index"][url]["mean_mark"]
         if list_of_index["reviews_index"][url]["total_reviews"] != 0:
-            score[url] *= mean_mark
-    
-
-
-    print(bm25.rank(normalized_query))
-
+            score[url] *= mean_mark 
+        score[url] = round(score[url], 1)  
 
     return(score)

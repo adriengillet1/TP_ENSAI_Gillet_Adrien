@@ -21,11 +21,15 @@ def load_nlp_model():
 
 
 def load_rearranged_products():
-    products = []
+    products_list = []
     with open("rearranged_products.jsonl", "r", encoding="utf-8") as f:
         for line in f:
-            products.append(json.loads(line))
-    return products
+            products_list.append(json.loads(line))
+    products_dict = {}
+    for product in products_list:
+        products_dict[product["url"]] = product
+    
+    return products_dict
 
 
 def synonyms_augmentation(synonyms, token):
@@ -65,3 +69,20 @@ def load_all_index():
     return list_of_index
 
 
+def save_json_file(products, best_responses, filename):
+    data = {}
+    rank = 0
+    for response in best_responses:
+        rank += 1
+        url = response[0]
+        score = response[1]
+        product_output = {}
+        product_output["title"] = products[url]["title"]
+        product_output["url"] = products[url]["url"]
+        product_output["description"] = products[url]["description"]
+        product_output["score"] = score
+        product_output["rank"] = rank
+        data[rank] = product_output
+
+    with open(filename, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)

@@ -87,3 +87,8 @@ def compute_description_length(products):
         normalised_description = normalize_list_of_tokens(tokenised_description)
         description_length[product["url"]] = len(normalised_description)
     return description_length
+
+
+def select_best_products(scores, number_of_products = 10):
+    best_products = list(sorted(scores.items(), key=lambda x: x[1], reverse=True)[:number_of_products])
+    return(best_products)
